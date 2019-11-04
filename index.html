@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang=pt-BR>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OpenKey - EyeTechIA</title>
+    <script src="./instascan.min.js"></script>
+</head>
+<body>
+<video id="preview"></video>
+<script>
+    let scanner = new Instascan.Scanner(
+        {
+            video: document.getElementById('preview')
+        }
+    );
+    scanner.addListener('scan', function(content) {
+        alert('Escaneou o conteudo: ' + content);
+        window.open(content, "_blank");
+    });
+    Instascan.Camera.getCameras().then(cameras =>
+    {
+        if(cameras.length > 0){
+            scanner.start(cameras[0]);
+        } else {
+            console.error("Não existe câmera no dispositivo!");
+        }
+    });
+</script>
+</body>
+</html>
